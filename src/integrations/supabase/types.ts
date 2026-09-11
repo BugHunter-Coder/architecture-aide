@@ -14,13 +14,231 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      order_items: {
+        Row: {
+          id: string
+          order_id: string
+          product_id: string | null
+          product_name: string
+          quantity: number
+          unit_price: number
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          unit_price?: number
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          customer_id: string
+          customer_name: string
+          customer_phone: string
+          delivery_address: string
+          eta_minutes: number | null
+          id: string
+          payment_method: string
+          rider_name: string | null
+          rider_phone: string | null
+          shop_id: string
+          status: string
+          total: number
+        }
+        Insert: {
+          created_at?: string
+          customer_id: string
+          customer_name?: string
+          customer_phone?: string
+          delivery_address?: string
+          eta_minutes?: number | null
+          id?: string
+          payment_method?: string
+          rider_name?: string | null
+          rider_phone?: string | null
+          shop_id: string
+          status?: string
+          total?: number
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string
+          customer_name?: string
+          customer_phone?: string
+          delivery_address?: string
+          eta_minutes?: number | null
+          id?: string
+          payment_method?: string
+          rider_name?: string | null
+          rider_phone?: string | null
+          shop_id?: string
+          status?: string
+          total?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_shop_id_fkey"
+            columns: ["shop_id"]
+            isOneToOne: false
+            referencedRelation: "shops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          is_available: boolean
+          name: string
+          price: number
+          shop_id: string
+          stock: number
+          unit: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_available?: boolean
+          name: string
+          price?: number
+          shop_id: string
+          stock?: number
+          unit?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_available?: boolean
+          name?: string
+          price?: number
+          shop_id?: string
+          stock?: number
+          unit?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_shop_id_fkey"
+            columns: ["shop_id"]
+            isOneToOne: false
+            referencedRelation: "shops"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          phone: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string
+          id: string
+          phone?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          phone?: string
+        }
+        Relationships: []
+      }
+      shops: {
+        Row: {
+          address: string
+          area: string
+          category: string
+          created_at: string
+          delivery_radius_km: number
+          description: string
+          id: string
+          image_url: string | null
+          is_open: boolean
+          lat: number
+          lng: number
+          name: string
+          owner_id: string
+          slug: string
+        }
+        Insert: {
+          address?: string
+          area?: string
+          category?: string
+          created_at?: string
+          delivery_radius_km?: number
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_open?: boolean
+          lat?: number
+          lng?: number
+          name: string
+          owner_id: string
+          slug: string
+        }
+        Update: {
+          address?: string
+          area?: string
+          category?: string
+          created_at?: string
+          delivery_radius_km?: number
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_open?: boolean
+          lat?: number
+          lng?: number
+          name?: string
+          owner_id?: string
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      can_view_order: { Args: { _order_id: string }; Returns: boolean }
+      owns_order: { Args: { _order_id: string }; Returns: boolean }
+      owns_shop: { Args: { _shop_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
