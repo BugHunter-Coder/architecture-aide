@@ -236,9 +236,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      can_view_order: { Args: { _order_id: string }; Returns: boolean }
-      owns_order: { Args: { _order_id: string }; Returns: boolean }
-      owns_shop: { Args: { _shop_id: string }; Returns: boolean }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
